@@ -1,6 +1,6 @@
 /**--------Connecting resources--------**/
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Lobster&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat:wght@700&family=Covered+By+Your+Grace&family=Great+Vibes&family=Lobster&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 /**--------End of connecting resources--------**/
 
 /**--------General styles--------**/
@@ -31,10 +31,11 @@ body {
     display: flex;
     height: 65px;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     position: fixed;
     border-bottom: 1px solid rgba(255, 255, 255, .098);
+    padding: 0 20px;
     z-index: 3;
     transition: background-color .1s linear;
 }
@@ -139,7 +140,7 @@ body {
     display: inline-block;
     position: relative;
     height: 40px;
-    width: 100%;
+    min-width: 100%;
     border-radius: 10px;
     line-height: 40px;
     padding-left: 20px;
@@ -281,18 +282,19 @@ body {
     border-radius: 50%;
     text-align: center;
     line-height: 25px;
+    transform: scale(1);
     transition: all .3s ease-out;
 }
 
 .header-button:hover,
 .call-button:hover {
     background-color: rgba(255, 255, 255, .098);
-    transition: all .3s ease-out;
     transform: scale(1.2);
+    transition: all .3s ease-out;
 }
 
 .header-button:active,
-.call-button:hover {
+.call-button:active {
     background-color: rgba(255, 255, 255, 0.267);
     transition: none;
 }
@@ -322,7 +324,7 @@ body {
 }
 
 .additionally > .call-title:before {
-    content: "call anytime";
+    content: "телефонуйте";
     position: absolute;
     top: -12px;
     font-size: 10px;
@@ -363,10 +365,11 @@ body {
 
 h1 {
     color: white;
-    font-size: 32px;
+    font-size: 27px;
     text-align: center;
     font-weight: 700;
     letter-spacing: -2px;
+    text-transform: capitalize;
     margin-top: 90px;
     z-index: 2;
 }
@@ -380,7 +383,7 @@ h1 {
     content: "";
     display: block;
     position: absolute;
-    top: 32px;
+    top: 27px;
     left: 8px;
     width: 107px;
     height: 12.45px;
@@ -390,9 +393,9 @@ h1 {
 }
 
 .button {
-    display: block;
+    display: inline-block;
     height: 40px;
-    width: 140px;
+    min-width: 140px;
     font-size: 12px;
     background-color: #4BAF47;
     border-radius: 10px;
@@ -401,9 +404,11 @@ h1 {
     font-size: 14px;
     font-weight: 700;
     margin-top: 20px;
+    padding: 0 10px;
     user-select: none;
     color: white;
     text-decoration: none;
+    text-transform: capitalize;
     border: none;
     cursor: pointer;
 }
@@ -504,15 +509,15 @@ h1 {
         left: -36.45px;
     }
 
-        h1 {
-        font-size: 48px;
+    h1 {
+        font-size: 40px;
     }
 
     .yellow-underline-text:after {
-        top: 46px;
+        top: 40px;
         left: 10px;
-        width: calc(107px * 1.5);
-        height: calc(12.45px * 1.5);
+        width: calc(107px * 1.6);
+        height: calc(12.45px * 1.6);
     }
 }
 
@@ -562,7 +567,7 @@ h1 {
         align-items: center;
         column-gap: 5px;
         width: 450px;
-        padding: 0 0 0 20px;
+        margin-left: 20px;
     }
 
     .nav-panel > ul > li {
@@ -570,7 +575,7 @@ h1 {
     }
 
     .tab {
-        font-size: 11px;
+        font-size: 10px;
         padding: 0 5px;
     }
 
@@ -590,14 +595,14 @@ h1 {
     }
 
     h1 {
-        font-size: 60px;
+        font-size: 53px;
     }
 
     .yellow-underline-text:after {
-        top: 60px;
+        top: 52px;
         left: 16px;
-        width: calc(107px * 1.8);
-        height: calc(12.45px * 1.8);
+        width: calc(107px * 2.2);
+        height: calc(12.45px * 2.2);
     }
 
     .button {
@@ -609,6 +614,17 @@ h1 {
 }
 
 @media screen and (width > 1200px) {
+    .nav-panel > ul {
+        width: 600px;
+        padding-right: 0;
+    }
+
+    .tab {
+        font-size: 14px;
+    }
+}
+
+@media screen and (width > 1300px) {
     .header-panel {
         height: 130px;
     }
@@ -618,8 +634,8 @@ h1 {
     }
 
     .logo > a {
-        height: 81.5px;
-        width: 190px;
+        height: 51.5px;
+        width: 170px;
     }
 
     .header-section .links {
@@ -634,17 +650,7 @@ h1 {
         font-size: 20px;
     }
 
-    .nav-panel > ul {
-        width: 550px;
-        column-gap: 10px;
-        padding-right: 0;
-    }
-
-    .tab {
-        font-size: 14px;
-    }
-
-    .header-button {
+        .header-button {
         width: 40px;
         height: 40px;
         font-size: 24px;
@@ -666,7 +672,11 @@ h1 {
     }
 }
 
-@media screen and (width > 1300px) {
+@media screen and (width > 1400px) {
+    .nav-panel > ul {
+        width: 600px;
+    }
+
     .additionally > .call-title {
         top: 4px;
         font-size: 16px;
@@ -678,27 +688,17 @@ h1 {
         font-size: 12px;
         font-weight: 500;
     }
-}
-
-@media screen and (width > 1400px) {
-    .nav-panel > ul {
-        width: 600px;
-    }
-
-    .tab {
-        font-size: 16px;
-    }
     
     h1 {
-        font-size: 80px;
+        font-size: 78px;
         letter-spacing: -6px;
     }
 
     .yellow-underline-text:after {
         top: 80px;
         left: 24px;
-        width: 215px;
-        height: 25px;
+        width: calc(215px * 1.5);
+        height: calc(25px * 1.5);
     }
 }
 /*--------End of media quaries--------*/
@@ -712,7 +712,7 @@ h1 {
 }
 
 .inscription {
-    font-family: 'Covered By Your Grace', serif;
+    font-family: 'Caveat', serif;
     color: rgba(238, 192, 68, 1);
     font-size: 12px;
     font-weight: 400;
@@ -759,12 +759,13 @@ p {
 .section-1 .wrap-3 {
     float: left;
     min-height: 170px;
+    padding-bottom: 20px;
+    margin-top: 20px;
 }
 
 .section-1 .wrap-2 {
     width: 60%;
     padding-right: 20px;
-    margin-top: 20px;
 }
 
 .section-1 .wrap-2 > p {
@@ -772,7 +773,7 @@ p {
 }
 
 .title {
-    font-family: 'Covered By Your Grace', serif;
+    font-family: 'Caveat', serif;
     color: rgba(75, 175, 71, 1);
     font-weight: 400;
 }
@@ -789,11 +790,12 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 20 / 17;
+    aspect-ratio: 20 / 12;
     background-image: url(../images/video_preview.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    border-radius: 10px;
     margin-top: 10px;
 }
 
@@ -842,13 +844,14 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
 }
 
 .section-2 .wrap {
     position: relative;
-    width: 250px;
+    width: 100%;
+    max-width: 370px;
     background-color: rgba(255, 255, 255, 1);
     border-radius: 0 0 10px 10px;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
@@ -860,6 +863,7 @@ p {
 }
 
 .section-2 .text-content {
+    position: relative;
     padding: 20px;
 }
 
@@ -867,9 +871,11 @@ p {
     margin-top: 10px;
 }
 
-.section-2 .wrap .icon {
+.section-2 .wrap .text-content:after {
+    content: "";
+    display: block;
     position: absolute;
-    top: calc(50% - 20px);
+    top: -30px;
     right: 10px;
     height: 60px;
     width: 60px;
@@ -880,15 +886,15 @@ p {
     z-index: 1;
 }
 
-.section-2 .wrap:first-child .icon {
+.section-2 .wrap:first-child .text-content:after {
     background-position-x: -4px;
 }
 
-.section-2 .wrap:nth-child(2) .icon {
+.section-2 .wrap:nth-child(2) .text-content:after {
     background-position-x: -133px;
 }
 
-.section-2 .wrap:last-child .icon {
+.section-2 .wrap:last-child .text-content:after {
     background-position-x: -267px;
 }
 /*--------End of styles for the section-2--------*/
@@ -927,7 +933,7 @@ p {
 
 .section-3 figcaption > .text {
     display: block;
-    font-family: 'Covered By Your Grace', serif;
+    font-family: 'Caveat', serif;
     font-size: 16px;
     color: white;
 }
@@ -954,7 +960,8 @@ p {
 }
 
 .section-3 summary {
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
     min-height: 64px;
     width: 100%;
@@ -1024,18 +1031,17 @@ p {
 
 /*--------Styles for the section-5--------*/
 .section-5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     background-image: url(../images/pattern_background.png);
     background-size: 100%;
-    padding: 50px 0;
+    padding: 50px 0 100px;
 }
 
 .section-5 > .wrapper {
-    position: absolute;
     max-width: 600px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: rgba(73, 167, 96, 1);
     padding: 35px;
 }
@@ -1128,6 +1134,7 @@ p {
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 10px 0 0 10px;
     text-align: right;
+    padding-left: 25px;
     padding-right: 60px;
     z-index: 1;
 }
@@ -1399,6 +1406,12 @@ p {
     background-image: url(../images/decore_photo_2.png);
     aspect-ratio: 470 / 300;
 }
+
+.site-footer .top-footer .explore,
+.site-footer .top-footer .news,
+.site-footer .bottom-footer {
+    text-transform: capitalize;
+}
 /*--------End of styles for the last section--------*/
 
 /*--------Animations--------*/
@@ -1470,7 +1483,7 @@ p {
 
     p {
         font-size: 16px;
-        line-height: 30px;
+        line-height: 24px;
     }
 
     .title {
@@ -1485,12 +1498,8 @@ p {
         background-size: 200%;
     }
 
-    .section-2 .wrap .icon {
-        top: calc(50% - 45px);
-    }
-
     .section-3 summary h3 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .section-5 .group {
@@ -1569,6 +1578,10 @@ p {
         font-size: 22px;
     }
 
+    p {
+        line-height: 30px;
+    }
+
     .title {
         font-size: 24px;
     }
@@ -1579,29 +1592,6 @@ p {
 
     .section-2 {
         background-size: contain;
-    }
-
-    .section-2 .wrap {
-        width: 370px;
-    }
-
-    .section-2 .wrap .icon {
-        top: 50%;
-        right: 20px;
-        height: 80px;
-        width: 80px;
-    }
-
-    .section-2 .wrap:first-child .icon {
-        background-position-x: -6px;
-    }
-
-    .section-2 .wrap:nth-child(2) .icon {
-        background-position-x: -177px;
-    }
-
-    .section-2 .wrap:last-child .icon {
-        background-position-x: -354px;
     }
 
     .section-3 summary h3 {
@@ -1731,12 +1721,13 @@ p {
 
     .section-1 .bg-map > .years {
         display: block;
-        font-family: 'Covered By Your Grace', serif;
+        font-family: 'Caveat', serif;
         font-size: 60px;
     }
 
     .section-1 .bg-map > .green-text {
         color: rgba(75, 175, 71, 1);
+        text-transform: uppercase;
     }
 
     .section-1 > .wrapper .column img {
@@ -1776,7 +1767,7 @@ p {
     }
 
     .section-5 > .wrapper {
-        transform: translate(-75%, -50%);
+        transform: translateX(-25%);
     }
 
     .section-5 .basket {
@@ -1825,35 +1816,15 @@ p {
     }
 
     .section-2 .wrap {
-        width: calc(100% / 3 - 40px);
-    }
-
-    .section-2 .wrap .icon {
-        top: calc(50% - 45px);
-        right: 10px;
-        height: 60px;
-        width: 60px;
-        background-size: cover;
+        width: calc(100% / 3 - 40px / 3);
     }
 
     .section-2 .wrap h3 {
         font-size: 18px;
     }
 
-    .section-2 .wrap:first-child .icon {
-        background-position-x: -4px;
-    }
-
-    .section-2 .wrap:nth-child(2) .icon {
-        background-position-x: -133px;
-    }
-
-    .section-2 .wrap:last-child .icon {
-        background-position-x: -267px;
-    }
-
     .section-6 figure {
-        width: calc(100% / 3 - 80px);
+        width: calc(100% / 3 - 80px / 3);
     }
 
     .section-6 figcaption {
@@ -1868,7 +1839,7 @@ p {
     }
 
     .section-8 .wrap {
-        width: calc(100% / 3 - 20px);
+        width: calc(100% / 3 - 40px / 3);
     }
 
     .section-8 .small-img,
@@ -1902,8 +1873,8 @@ p {
 
 @media screen and (min-width: 1400px) {
     .section-3 {
-        background-size: contain;
-        background-repeat: no-repeat;
+        background-size: 550px;
+        background-repeat: repeat-y;
     }
 
     .section-3 summary {
