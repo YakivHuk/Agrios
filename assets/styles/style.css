@@ -21,7 +21,7 @@ body {
 
 /**--------Styles for the hero section--------**/
 .header-section {
-    background-image: url("../images/background.png");
+    background-image: url("../images/background.webp");
     background-size: cover;
     background-position: center;
 }
@@ -68,14 +68,15 @@ body {
     opacity: 0%;
 }
 
-.logo > a {
+.logo {
     display: block;
     height: calc(51.5px / 1.5);
     width: calc(170px / 1.5);
-    background-image: url("../images/logo.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+}
+
+.logo > img {
+    width: 100%;
+    min-width: calc(170px / 1.5);
 }
 
 .nav-panel .icon {
@@ -387,7 +388,7 @@ h1 {
     left: 8px;
     width: 107px;
     height: 12.45px;
-    background-image: url("../images/underline.png");
+    background-image: url("../images/underline.webp");
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -411,6 +412,7 @@ h1 {
     text-transform: capitalize;
     border: none;
     cursor: pointer;
+    transition: all .3s ease-out;
 }
 
 .button:hover {
@@ -607,7 +609,7 @@ h1 {
 
     .button {
         height: 48px;
-        width: 160px;
+        min-width: 160px;
         font-size: 14px;
         line-height: 48px;
     }
@@ -633,7 +635,7 @@ h1 {
         top: 127.5px;
     }
 
-    .logo > a {
+    .logo {
         height: 51.5px;
         width: 170px;
     }
@@ -745,7 +747,7 @@ p {
 
 /*--------Styles for the section-1--------*/
 .section-1 {
-    background-image: url(../images/background_1.png);
+    background-image: url(../images/background_1.webp);
     background-position: bottom left;
     background-size: contain;
     background-repeat: no-repeat;
@@ -791,7 +793,7 @@ p {
     justify-content: center;
     align-items: center;
     aspect-ratio: 20 / 12;
-    background-image: url(../images/video_preview.png);
+    background-image: url(../images/video_preview.webp);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -820,7 +822,7 @@ p {
 }
 
 .section-1 .bg-map {
-    background-image: url(../images/world_map.png);
+    background-image: url(../images/world_map.webp);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -834,7 +836,7 @@ p {
     flex-direction: column;
     gap: 20px;
     background-color: rgba(248, 247, 240, 1);
-    background-image: url(../images/background_2.png);
+    background-image: url(../images/background_2.webp);
     background-position: bottom center;
     background-size: 400%;
     background-repeat: no-repeat;
@@ -879,7 +881,7 @@ p {
     right: 10px;
     height: 60px;
     width: 60px;
-    background-image: url(../images/sprite.png);
+    background-image: url(../images/sprite.svg);
     background-size: cover;
     background-color: rgba(197, 206, 56, 1);
     border-radius: 8px;
@@ -887,22 +889,22 @@ p {
 }
 
 .section-2 .wrap:first-child .text-content:after {
-    background-position-x: -4px;
+    background-position-x: -7px;
 }
 
 .section-2 .wrap:nth-child(2) .text-content:after {
-    background-position-x: -133px;
+    background-position-x: -63px;
 }
 
 .section-2 .wrap:last-child .text-content:after {
-    background-position-x: -267px;
+    background-position-x: -296px;
 }
 /*--------End of styles for the section-2--------*/
 
 /*--------Styles for the section-3--------*/
 .section-3 {
     position: relative;
-    background-image: url(../images/decoration_box.png);
+    background-image: url(../images/decoration_box.webp);
     position: relative;
 }
 
@@ -1035,7 +1037,7 @@ p {
     justify-content: center;
     align-items: center;
     position: relative;
-    background-image: url(../images/pattern_background.png);
+    background-image: url(../images/pattern_background.webp);
     background-size: 100%;
     padding: 50px 0 100px;
 }
@@ -1146,7 +1148,7 @@ p {
     left: -25px;
     height: 50px;
     width: 50px;
-    background-image: url(../images/Share.svg);
+    background-image: url(../images/share.svg);
     background-position: center;
     background-size: 50%;
     background-repeat: no-repeat;
@@ -1180,7 +1182,7 @@ p {
     align-items: center;
     row-gap: 10px;
     aspect-ratio: 1905 / 616;
-    background-image: url(../images/video_preview_2.png);
+    background-image: url(../images/video_preview_2.webp);
     background-size: cover;
     background-position: center;
 }
@@ -1195,6 +1197,7 @@ p {
     color: black;
     text-align: center;
     line-height: 30px;
+    z-index: 1;
 }
 
 .section-7 > .video > h2 {
@@ -1281,7 +1284,7 @@ p {
 
 /*--------Styles for the section-9--------*/
 .section-9 {
-    background-image: url(../images/pattern_background_2.png);
+    background-image: url(../images/pattern_background_2.webp);
     background-color: rgba(248, 247, 240, 1);
     background-position: bottom;
     background-size: contain;
@@ -1311,7 +1314,7 @@ p {
 .section-9 form .textbox {
     font-family: Manrope, sans-serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 10px;
     border: none;
     border-radius: 10px;
     padding-left: 20px;
@@ -1395,7 +1398,7 @@ p {
     width: 140px;
     top: 0;
     left: 0;
-    background-image: url(../images/decore_photo_1.png);
+    background-image: url(../images/decore_photo_1.webp);
     aspect-ratio: 560 / 121;
 }
 
@@ -1403,7 +1406,7 @@ p {
     width: 117.5px;
     bottom: 0;
     right: 0;
-    background-image: url(../images/decore_photo_2.png);
+    background-image: url(../images/decore_photo_2.webp);
     aspect-ratio: 470 / 300;
 }
 
@@ -1530,6 +1533,10 @@ p {
 
     .section-7:before {
         right: 200px;
+    }
+
+    .section-9 form .textbox {
+        font-size: 14px;
     }
 
     .section-9 form input[type="text"],
@@ -1860,7 +1867,7 @@ p {
     }
 
     .section-9 .wrap {
-        background-image: url(../images/pattern_background_2.png);
+        background-image: url(../images/pattern_background_2.webp);
         background-color: rgba(248, 247, 240, 1);
         background-position: bottom;
         background-size: contain;
@@ -1924,6 +1931,7 @@ p {
 
 .site-footer .logo-footer .logo {
     display: block;
+    height: auto;
     width: 170px;
 }
 
@@ -2121,7 +2129,7 @@ p {
     width: 50px;
     border-radius: 0 10px 10px 0;
     background-color: rgba(75, 175, 71, 1);
-    background-image: url(../images/paper_plane.png);
+    background-image: url(../images/paper_plane.svg);
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
