@@ -216,6 +216,42 @@ body {
     text-decoration: none;
 }
 
+.search-menu {
+    position: absolute;
+    top: 100px;
+    left: calc(50%);
+    transform: translateX(-50%);
+    height: 500px;
+    width: 80vw;
+    background-color: rgba(102, 90, 90, 0.473);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all .3s ease-out;
+    z-index: 2;
+}
+
+.search-menu input[type="text"] {
+    display: block;
+    height: 30px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 25px;
+    padding: 0 25px;
+    margin-bottom: 25px;
+}
+
+.search-menu .results {
+    height: calc(100% - 55px);
+    overflow-Y: auto;
+}
+
+.search-menu .results .card {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
 .header-button {
     width: 30px;
     height: 30px;
@@ -406,9 +442,11 @@ body {
 }
 
 :not(.home-page) > .header-section > .hero-section h1 {
+    width: 80%;
     color: white;
     font-size: 23px;
     font-weight: 800;
+    text-align: center;
     text-transform: capitalize;
 }
 
@@ -531,6 +569,10 @@ body {
 
     .home-page > .header-section:after {
         left: 0px;
+    }
+
+    :not(.home-page) > .header-section > .hero-section h1 {
+        width: 60%;
     }
 }
 
@@ -684,6 +726,10 @@ body {
 
     .tab {
         font-size: 14px;
+    }
+
+    :not(.home-page) > .header-section > .hero-section h1 {
+        width: 70%;
     }
 }
 
@@ -2347,6 +2393,7 @@ p {
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
+    min-height: 330px;
     padding: 30px 0;
 }
 
@@ -2431,6 +2478,23 @@ p {
     border: 2px solid #4BAF47;
 }
 
+.page-shop .shop-section .cards .no-products {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.page-shop .shop-section .cards .no-products p {
+    font-size: 16px;
+}
+
+.page-shop .shop-section .cards .no-products .fa-ban {
+    font-size: 50px;
+}
 /*--------End of styles for the shop section--------*/
 
 /*--------Animations--------*/
@@ -2933,6 +2997,14 @@ p {
         width: 90px;
         font-size: 14px;
         transform: translateY(-30px);
+    }
+
+    .page-shop .shop-section .cards .no-products p {
+        font-size: 24px;
+    }
+
+    .page-shop .shop-section .cards .no-products .fa-ban {
+        font-size: 60px;
     }
 }
 

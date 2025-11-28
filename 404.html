@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#665A5A79">
     <link rel="icon" href="favicon.png" type="image/png">
-    <title>Крамниця</title>
-    <meta name="description" content="Крамниця агрокомпанії Agrios пропонує великий асортимент органічних продуктів на будь-який смак.">
+    <title>404 - Сторінка не знайдена</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
-<body class="page-shop">
+<body>
     <section class="header-section">
         <header id="navBar" class="header-panel">
             <a href="index.html" aria-label="Перейти на головну" class="logo">
@@ -50,7 +49,7 @@
                     <span class="burger"></span>
                 </button>
                 <div class="separator">
-                    <button id="headerSearchButton" class="header-button search-button" aria-label="Пошук">
+                    <button class="header-button search-button" aria-label="Пошук">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
@@ -65,59 +64,11 @@
             <div id="progressBar" class="progress-bar"></div>
         </header>
         <div class="hero-section">
-            <p>Головна / Крамниця</p>
-            <h1>Наша крамниця</h1>
+            <p>Помилка 404</p>
+            <h1>Отакої! Сторінку не знайдено.</h1>
+            <a href="index.html" class="button">Повернутися на головну</a>
         </div>
     </section>
-
-    <main>
-        <div class="default-section shop-section wrapper">
-            <div id="sideBar" class="side-bar d-none">
-                <div class="container">
-                    <input type="text" id="searchField" placeholder="Пошук продуктів..." autocomplete="off">
-                    <button id="searchButton" class="search-button" aria-label="знайти"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-                <div class="container">
-                    <h2>Ціна</h2>
-                    <div class="range-wrap">
-                        <input type="range" id="rangeMin" value="0" autocomplete="off">
-                        <input type="range" id="rangeMax" value="100" autocomplete="off">
-                    </div>
-                    <p id="priceRange" class="price-range">20 ₴ - 100 ₴</p>
-                    <button id="applyButton" class="apply-button">Застосувати</button>
-                </div>
-                <div class="container">
-                    <h2>Категорії</h2>
-                    <button id="allCategoryButton">Усі</button>
-                    <button id="vegetablesCategoryButton">Овочі</button>
-                    <button id="fruitsCategoryButton">Фрукти</button> 
-                    <button id="bestCategoryButton">Найкращі</button>
-                    <button id="otherCategoryButton">Інше</button>
-                </div>
-            </div>
-
-            <div class="wrap">
-                <div class="panel">
-                    <button id="filterButton" class="filter-button" aria-label="фільтри"><i class="fa-solid fa-filter"></i></button>
-
-                    <p id="counter" class="number-of-cards">Показано 1–9 з 10 результатів</p>
-
-                    <select id="sortList" autocomplete="off">
-                        <option value="1">Сортування за замовчуванням</option>
-                        <option value="2">Від дешевих до дорогих</option>
-                        <option value="3">Від дорогих до дешевих</option>
-                        <option value="4">За рейтенгом</option>
-                    </select>
-                </div>
-                <div id="cards" class="cards"></div>
-                <div id="pageButtons" class="page-buttons">
-                    <button class="page-button">1</button>
-                    <button class="page-button">2</button>
-                    <button class="page-button">›</button>
-                </div>
-            </div>
-        </div>
-    </main>
 
     <footer class="site-footer">
         <div class="top-footer">

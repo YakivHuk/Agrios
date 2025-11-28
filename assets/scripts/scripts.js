@@ -1,6 +1,9 @@
 const burgerButton = document.getElementById('burgerButton')
 const navPanel = document.getElementById('navPanel')
 
+const headerSearchButton = document.getElementById('headerSearchButton')
+const headerPanel = document.querySelector(".header-panel")
+
 const exploreTabsButton = document.getElementById('exploreTabsButton')
 const newsTabsButton = document.getElementById('newsTabsButton')
 const contactsTabsButton = document.getElementById('contactsTabsButton')
@@ -27,6 +30,29 @@ burgerButton.addEventListener('click', () => {
         navPanel.classList.toggle('d-none')
         setTimeout(() => navPanel.classList.toggle('burger-opening-animation'), 500)
         navPanel.classList.toggle('burger-opening-animation')
+    }
+})
+
+headerSearchButton.addEventListener('click', () => {
+    const existing = document.getElementById("searchMenu");
+    if (document.getElementById("searchMenu")) {
+        searchMenu.classList.add('burger-closing-animation');
+        setTimeout(() => {
+            if (headerPanel.contains(existing)) {
+                headerPanel.removeChild(searchMenu);
+            }
+        }, 500)
+    } else {
+        const searchMenu = document.createElement("div");
+        searchMenu.setAttribute("id", "searchMenu")
+        searchMenu.innerHTML = `
+            <input id="headerSearchField" type="text" placeholder="Щось шукаєте?">
+            <div id="results" class="results"></div>
+        `;
+        searchMenu.classList.add("search-menu");
+        searchMenu.classList.add("burger-opening-animation")
+        headerPanel.appendChild(searchMenu);
+        setTimeout(() => searchMenu.classList.remove("burger-opening-animation"), 500)
     }
 })
 
@@ -94,10 +120,12 @@ if (container) {
     const bestBtn = document.getElementById("bestCategoryButton");
     const otherBtn = document.getElementById("otherCategoryButton");
 
+    const counter = document.getElementById("counter")
+
     const sortList = document.getElementById("sortList");
 
     const pageButtons = document.getElementById("pageButtons");
-    function drawCards(product) {
+    function drawCard(product) {
         const card = document.createElement("div");
         card.classList.add("card");
         card.innerHTML = `
@@ -119,6 +147,46 @@ if (container) {
         container.appendChild(card);
     }
 
+    function printCards(products) {
+        if (products.length == 0) {
+            if (document.getElementById("noProducts")) container.removeChild(document.getElementById("noProducts"));
+            const noProducts = document.createElement("div");
+            noProducts.setAttribute("id", "noProducts");
+            noProducts.classList.add("no-products");
+            noProducts.innerHTML = `
+            <p>
+                <i class="fa-solid fa-ban"></i>
+            </p>
+            <p>
+                Жодного товару не знайдено!
+            </p>`;
+            container.appendChild(noProducts);
+            return;
+        } else {
+            const noProducts = document.getElementById("noProducts");
+            if (noProducts) container.removeChild(noProducts);
+        }
+
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            for (let i = 0; i < 9 && i < products.length; i++) {
+                drawCard(products[i]);
+            };
+            counter.textContent = "Показано 1-" + (9 < products.length ? 9 : products.length) + " з " + products.length + " результатів";
+        }
+        else if (window.matchMedia("(min-width: 769px)").matches) {
+            for (let i = 0; i < 8 && i < products.length; i++) {
+                drawCard(products[i]);
+            };
+            counter.textContent = "Показано 1-" + (8 < products.length ? 8 : products.length) + " з " + products.length + " результатів";
+        }
+        else if (window.matchMedia("(max-width: 768px)").matches) {
+            for (let i = 0; i < 6 && i < products.length; i++) {
+                drawCard(products[i]);
+            };
+            counter.textContent = "Показано 1-" + (6 < products.length ? 6 : products.length) + " з " + products.length + " результатів";
+        }
+    }
+
     function deleteCards() {
         const products = container.querySelectorAll(".card");
         for (let product of products) {
@@ -126,7 +194,44 @@ if (container) {
         }
     }
 
-    function createForwardButton(filteredArray, pageNumber, numberOfPages) {
+    let pageNumber = 1;
+    let numberOfCards;
+
+    function createBackButton(filteredArray, numberOfPages) {
+        if (pageNumber > 1 && !document.getElementById("backButton")) {
+            const backButton = document.createElement("button");
+            backButton.textContent = "‹";
+            backButton.classList.add("page-button");
+            backButton.setAttribute("id", "backButton");
+            pageButtons.prepend(backButton);
+            backButton.addEventListener("click", () => {
+                deleteCards();
+                const buttons = document.querySelectorAll(".page-button");
+                buttons.forEach((button) => {
+                    if (+button.textContent == pageNumber - 1) {
+                        button.classList.add("page-button-visited");
+                    } else {
+                        button.classList.remove("page-button-visited");
+                    }
+                })
+                let count = 0;
+                for (let j = (pageNumber - 2) * numberOfCards; j < filteredArray.length && j < (pageNumber - 1) * numberOfCards; j++) {
+                    drawCard(filteredArray[j]);
+                    count++;
+                };
+                counter.textContent = "Показано 1-" + count + " з " + filteredArray.length + " результатів";
+                if (pageNumber == 2) {
+                    pageButtons.removeChild(document.getElementById("backButton"));
+                }
+                pageNumber -= 1;
+                createForwardButton(filteredArray, numberOfPages);
+            })
+        } else if (pageNumber == 1 && document.getElementById("backButton")) {
+            pageButtons.removeChild(document.getElementById("backButton"));
+        }
+    }
+
+    function createForwardButton(filteredArray, numberOfPages) {
         if (pageNumber < numberOfPages && !document.getElementById("forwardButton")) {
             const forwardButton = document.createElement("button");
             forwardButton.textContent = "›";
@@ -143,17 +248,20 @@ if (container) {
                         button.classList.remove("page-button-visited");
                     }
                 })
-                for (let j = pageNumber * 9; j < filteredArray.length && j < pageNumber * 9 + 9; j++) {
-                    drawCards(filteredArray[j]);
-                    if (pageNumber + 1 == numberOfPages) {
-                        pageButtons.removeChild(document.getElementById("forwardButton"));
-                    }
-                    return pageNumber + 1;
+                let count = 0;
+                for (let j = pageNumber * numberOfCards; j < filteredArray.length && j < pageNumber * numberOfCards + numberOfCards; j++) {
+                    drawCard(filteredArray[j]);
+                    count++;
                 };
+                counter.textContent = "Показано 1-" + count + " з " + filteredArray.length + " результатів";
+                if (pageNumber + 1 == numberOfPages) {
+                    pageButtons.removeChild(document.getElementById("forwardButton"));
+                }
+                pageNumber += 1;
+                createBackButton(filteredArray, numberOfPages);
             })
         } else if (pageNumber == numberOfPages && document.getElementById("forwardButton")) {
             pageButtons.removeChild(document.getElementById("forwardButton"));
-            return pageNumber;
         }
     }
 
@@ -162,12 +270,14 @@ if (container) {
         buttonsArray.forEach((button) => {
             pageButtons.removeChild(button);
         });
-        let numberOfPages = Math.ceil((filteredArray.length + 1) / 9);
-        let pageNumber;
+        let numberOfPages = Math.ceil((filteredArray.length + 1) / numberOfCards);
         for (let i = 1; i <= numberOfPages; i++) {
             const button = document.createElement("button");
             button.textContent = i;
             button.classList.add("page-button");
+            if (i == 1) {
+                button.classList.add("page-button-visited");
+            }
             pageButtons.appendChild(button);
             button.addEventListener("click", () => {
                 const buttons = document.querySelectorAll(".page-button");
@@ -176,42 +286,59 @@ if (container) {
                 })
                 button.classList.add("page-button-visited");
                 deleteCards();
-                for (let j = (i - 1) * 9; j < filteredArray.length && j < (i - 1) * 9 + 9; j++) {
-                    drawCards(filteredArray[j]);
+                let count = 0;
+                for (let j = (i - 1) * numberOfCards; j < filteredArray.length && j < (i - 1) * numberOfCards + numberOfCards; j++) {
+                    drawCard(filteredArray[j]);
                     pageNumber = i;
-                    pageNumber = createForwardButton(filteredArray, pageNumber, numberOfPages);;  
+                    createForwardButton(filteredArray, numberOfPages); 
+                    createBackButton(filteredArray, numberOfPages);
+                    count++;
                 };
+                counter.textContent = "Показано 1-" + count + " з " + filteredArray.length + " результатів";
             });
         }
-
-        
+        createForwardButton(filteredArray, numberOfPages);
     }
     document.addEventListener("DOMContentLoaded", () => {
     fetch('./assets/data/data.json')
         .then(response => response.json())
         .then(data => {
-            data.forEach(product => {
-                drawCards(product);
-            });
+            printCards(data);
+            if (window.innerWidth > 1025) {
+                numberOfCards = 9;
+            }
+            else if (window.innerWidth > 769) {
+                numberOfCards = 8;
+            }
+            else if (window.innerWidth <= 769) {
+                numberOfCards = 6;
+            }
 
             let filteredArray = structuredClone(data);
+            createPageButtons(filteredArray);
 
             searchField.addEventListener("keypress", (e) => {
                 if (e.key == "Enter") {
                     deleteCards();
                     filteredArray = data.filter(product => product.name == searchField.value)
-                    filteredArray.forEach(product => {
-                        drawCards(product);
-                    });
+                    printCards(filteredArray);
+                    createPageButtons(filteredArray);
+                    rangeMin.value = 0;
+                    rangeMax.value = 100;
+                    priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                    sortList.value = 1;
                 }
             });
 
             searchButton.addEventListener("click", () => {
                 deleteCards();
                 filteredArray = data.filter(product => product.name == searchField.value)
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
+                printCards(filteredArray);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                createPageButtons(filteredArray);
+                sortList.value = 1;
             })
 
             let maxPrice = 0;
@@ -253,53 +380,74 @@ if (container) {
 
             applyButton.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = structuredClone(data);
-                filteredArray = filteredArray.filter(product => product.price >= lowestPriceRange && product.price <= highestPriceRange);
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
-                sortList.value = 1;
+                let newArray = filteredArray.filter(product => product.price >= lowestPriceRange && product.price <= highestPriceRange);
+                printCards(newArray);
+                pageNumber = 1;
+                createPageButtons(newArray);
             })
 
             allBtn.addEventListener("click", () => {
                 deleteCards();
                 filteredArray = structuredClone(data);
-                data.forEach(product => {
-                    drawCards(product);
-                });
+                printCards(data);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                pageNumber = 1;
                 createPageButtons(filteredArray);
+                sortList.value = 1;
             });
 
             vegetablesBtn.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = data.filter(product => product.category == "Овочі");
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
+                filteredArray = structuredClone(data);
+                filteredArray = filteredArray.filter(product => product.category == "Овочі");
+                printCards(filteredArray);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                pageNumber = 1;
+                createPageButtons(filteredArray);
+                sortList.value = 1;
             });
 
             fruitsBtn.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = data.filter(product => product.category == "Фрукти");
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
+                filteredArray = structuredClone(data);
+                filteredArray = filteredArray.filter(product => product.category == "Фрукти");
+                printCards(filteredArray);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                pageNumber = 1;
+                createPageButtons(filteredArray);
+                sortList.value = 1;
             });
 
             bestBtn.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = data.filter(product => product.grade >= 4.5);
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
+                filteredArray = structuredClone(data);
+                filteredArray = filteredArray.filter(product => product.grade >= 4.5);
+                printCards(filteredArray);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                pageNumber = 1;
+                createPageButtons(filteredArray);
+                sortList.value = 1;
             });
 
             otherBtn.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = data.filter(product => product.category == "Інше");
-                filteredArray.forEach(product => {
-                    drawCards(product);
-                });
+                filteredArray = structuredClone(data);
+                filteredArray = filteredArray.filter(product => product.category == "Інше");
+                printCards(filteredArray);
+                rangeMin.value = 0;
+                rangeMax.value = 100;
+                priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
+                pageNumber = 1;
+                createPageButtons(filteredArray);
+                sortList.value = 1;
             });
             
             sortList.addEventListener("input", () => {
@@ -308,32 +456,32 @@ if (container) {
                 switch (+sortList.value) {
                     case 1:
                         if (filteredArray == [] || filteredArray.length == data.length) {
-                            data.forEach(product => {
-                                drawCards(product);
-                            });
+                            printCards(data);
+                            pageNumber = 1;
+                            createPageButtons(data);
                         } else {
-                            filteredArray.forEach(product => {
-                                drawCards(product);
-                            });
+                            printCards(filteredArray);
+                            pageNumber = 1;
+                            createPageButtons(filteredArray);
                         }
                         break;
                     case 2:      
                         sortArray.sort((a, b) => a.price - b.price);
-                        sortArray.forEach(product => {
-                            drawCards(product);
-                        });
+                        printCards(sortArray);
+                        pageNumber = 1;
+                        createPageButtons(filteredArray);
                         break;
                     case 3:
                         sortArray.sort((a, b) => b.price - a.price);
-                        sortArray.forEach(product => {
-                            drawCards(product);
-                        });
+                        printCards(sortArray);
+                        pageNumber = 1;
+                        createPageButtons(filteredArray);
                         break;
                     case 4:
                         sortArray.sort((a, b) => b.grade - a.grade);
-                        sortArray.forEach(product => {
-                            drawCards(product);
-                        });
+                        printCards(sortArray);
+                        pageNumber = 1;
+                        createPageButtons(filteredArray);
                 }
             });
         })
