@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Яблука",
+        "path": "assets/data/product_1.webp",
+        "price": 34.90,
+        "grade": 3.7,
+        "category": "Фрукти"
+    },
+    {
+        "name": "Банани",
+        "path": "assets/data/product_2.webp",
+        "price": 59.90,
+        "grade": 4.2,
+        "category": "Фрукти"
+    },
+    {
+        "name": "Морква",
+        "path": "assets/data/product_3.webp",
+        "price": 8.90,
+        "grade": 4.4,
+        "category": "Овочі"
+    },
+    {
+        "name": "Часники",
+        "path": "assets/data/product_4.webp",
+        "price": 139.90,
+        "grade": 3.2,
+        "category": "Овочі"
+    },
+    {
+        "name": "Виноград",
+        "path": "assets/data/product_5.webp",
+        "price": 139.90,
+        "grade": 4.8,
+        "category": "Фрукти"
+    },
+    {
+        "name": "Листя салату",
+        "path": "assets/data/product_6.webp",
+        "price": 159.90,
+        "grade": 2.4,
+        "category": "Інше"
+    },
+    {
+        "name": "Цибуля",
+        "path": "assets/data/product_7.webp",
+        "price": 9.90,
+        "grade": 3.9,
+        "category": "Овочі"
+    },
+    {
+        "name": "Картопля",
+        "path": "assets/data/product_8.webp",
+        "price": 14.90,
+        "grade": 4.8,
+        "category": "Фвочі"
+    },
+    {
+        "name": "Червоний виноград",
+        "path": "assets/data/product_9.webp",
+        "price": 139.90,
+        "grade": 5,
+        "category": "Фрукти"
+    },
+    {
+        "name": "Помідори",
+        "path": "assets/data/product_10.webp",
+        "price": 124.30,
+        "grade": 3.5,
+        "category": "Овочі"
+    }
+]

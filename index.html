@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
-<body>
+<body class="home-page">
     <section class="full-screen header-section">
         <header id="navBar" class="header-panel">
             <a href="index.html" aria-label="Перейти на головну" class="logo">
@@ -36,19 +36,18 @@
                 </div>
 
                 <ul id="navigationList">
-                    <li><a class="tab" href="#">Головна <i class="fa-solid fa-chevron-down"></i></a></li>
-                    <li><a class="tab" href="#">Про нас</a></li>
-                    <li><a class="tab" href="#">Сервіси <i class="fa-solid fa-chevron-down"></i></a></li>
+                    <li><a class="tab" href="index.html">Головна <i class="fa-solid fa-chevron-down"></i></a></li>
+                    <li><a class="tab" href="about.html">Про нас</a></li>
+                    <li><a class="tab" href="services.html">Сервіси <i class="fa-solid fa-chevron-down"></i></a></li>
                     <li><a class="tab" href="#">Проєкти <i class="fa-solid fa-chevron-down"></i></a></li>
                     <li><a class="tab" href="#">Новини <i class="fa-solid fa-chevron-down"></i></a></li>
-                    <li><a class="tab" href="#">Крамниця <i class="fa-solid fa-chevron-down"></i></a></li>
-                    <li><a class="tab" href="#">Контакти</a></li>
+                    <li><a class="tab" href="shop.html">Крамниця <i class="fa-solid fa-chevron-down"></i></a></li>
+                    <li><a class="tab" href="contact.html">Контакти</a></li>
                 </ul>
             </nav>
 
             <div class="additionally">
-                <button id="burgerButton" class="header-button burger-button" aria-label="Відкрити навігаційне меню" 
-                title="Відкрити навігаційне меню">
+                <button id="burgerButton" class="header-button burger-button" aria-label="Відкрити навігаційне меню">
                     <span class="burger"></span>
                 </button>
                 <div class="separator">
@@ -77,11 +76,10 @@
             </h1>
             <a class="button" href="#">Дізнайся більше</a>
         </div>
-
     </section>
 
     <main>
-        <section class="full-screen default-section section-1">
+        <section class="default-section section-1">
             <div class="wrapper">
                 <div class="wrap-box">
                     <div class="wrap wrap-1">
@@ -112,7 +110,7 @@
                         </div>
                     </div>
 
-                    <a class="button" href="#">Дізнатися більше</a>
+                    <a class="button" href="services.html">Дізнатися більше</a>
                 </div>
 
                 <div class="columns">
@@ -131,7 +129,7 @@
             </div>
         </section>
         
-        <section class="full-screen default-section section-2">
+        <section class="default-section section-2">
             <div class="text-center">
                 <p><span class="inscription">Наші Сервіси</span></p>
                 <h2>Що ми пропонуємо</h2>
@@ -174,7 +172,7 @@
             </div>
         </section>
 
-        <section class="full-screen default-section section-3">
+        <section class="default-section section-3">
             <div class="wrapper">
                 <figure>
                     <img src="assets/images/just_image.webp" alt="">
@@ -249,7 +247,7 @@
             </div>
         </section>
 
-        <section class="full-screen section-5">
+        <section class="section-5">
             <div class="wrapper">
                 <h2>
                     Створюємо найкращий аграрний ринок
@@ -271,7 +269,7 @@
             </div>
         </section>
 
-        <section class="full-screen default-section section-6">
+        <section class="default-section section-6">
             <div class="text-center">
                 <p><span class="inscription">Члени команди</span></p>
                 <h2>Члени команди</h2>
@@ -317,7 +315,7 @@
             </div>
         </section>
         
-        <section class="full-screen default-section section-8">
+        <section class="default-section section-8">
             <div class="text-center">
                 <p><span class="inscription">З Блогу</span></p>
                 <h2>
@@ -342,7 +340,7 @@
             </div>
         </section>
 
-        <section class="full-screen default-section section-9">
+        <section class="default-section section-9">
             <div class="wrapper">
                 <iframe title="Мапа головного офісу Agrios" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2095.6562869759337!2d-0.11860988495693718!3d51.50317765995677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea92!2z0JvQvtC90LTQvtC90YHRjNC60LUg0L7QutC-!5e0!3m2!1suk!2sua!4v1757521594402!5m2!1suk!2sua"></iframe>
                 <div class="wrap">
@@ -368,11 +366,12 @@
             </div>
         </div>
     </main>
+
     <footer class="site-footer">
         <div class="top-footer">
             <div class="wrap">
                 <div class="logo-footer">
-                    <a class="logo" href="#">
+                    <a class="logo" href="index.html">
                         <img src="assets/images/logo.webp" alt="Логотип агрокомпанії Agrios">
                     </a>
                     <p>
@@ -390,12 +389,12 @@
                 <nav id="explore" class="explore d-none">
                     <h2 class="d-none">Навігація</h2>
                     <ul>
-                        <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Про Нас</a></li>
-                        <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Сервіси</a></li>
-                        <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Наші проєкт</a></li>
+                        <li><a class="link" href="about.html"><i class="fa-solid fa-leaf"></i> Про Нас</a></li>
+                        <li><a class="link" href="services.html"><i class="fa-solid fa-leaf"></i> Сервіси</a></li>
+                        <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Наші проєкти</a></li>
                         <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Познайомтесь з фермерами</a></li>
                         <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Останні новини</a></li>
-                        <li><a class="link" href="#"><i class="fa-solid fa-leaf"></i> Контакти</a></li>
+                        <li><a class="link" href="contact.html"><i class="fa-solid fa-leaf"></i> Контакти</a></li>
                     </ul>
                 </nav>
                 <button id="newsTabsButton" class="tab-button">Новини</button>
@@ -434,7 +433,7 @@
                         <p><i class="fa-solid fa-location-dot"></i> 80 Бруклін Голден Стріт Лайн Нью-Йорк, США</p>
                         <form>
                             <input type="text" placeholder="Адреса Вашої Е-пошти" required>
-                            <input type="submit" value="">
+                            <input type="submit" value="" aria-label="Відправити">
                         </form>
                     </address>
                 </div>
