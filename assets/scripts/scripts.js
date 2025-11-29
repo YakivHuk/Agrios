@@ -33,10 +33,68 @@ burgerButton.addEventListener('click', () => {
     }
 })
 
+function drawCard(product, container) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    let grade = "";
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.round(product.grade)) {
+            grade += ` <i class="yellow-star fa-solid fa-star"></i>\n`;
+        } else {
+            grade += ` <i class="fa-solid fa-star"></i>\n`;
+        }
+    }
+    card.innerHTML = `
+        <div class="image-container">
+            <img src="${product.path}" alt="${product.name}">
+        </div>
+        <div class="details">
+            <p class="name-product">${product.name}</p>
+            <p class="grade" title="Оцінка ${product.grade} з 5">${grade}</p>
+            <p class="price">${product.price} ₴/кг</p>
+        </div>`;
+    container.appendChild(card);
+}
+
+function searchProducts() {
+    fetch('./assets/data/data.json')
+        .then(response => response.json())
+        .then(data => {
+            if (document.querySelector(".loading")) {
+                results.removeChild(document.querySelector(".loading"));
+            }
+            if (headerSearchField.value.trim() != "") {
+                const filteredArray = data.filter(product => product.name.toLowerCase().trim().startsWith(headerSearchField.value.trim().toLowerCase()));
+                if (filteredArray.length == 0) {
+                    if (document.getElementById("noProducts")) results.removeChild(document.getElementById("noProducts"));
+                    const noProducts = document.createElement("div");
+                    noProducts.setAttribute("id", "noProducts");
+                    noProducts.classList.add("no-products");
+                    noProducts.innerHTML = `
+                    <p>
+                        <i class="fa-solid fa-ban"></i>
+                    </p>
+                    <p>
+                        Жодного товару не знайдено!
+                    </p>`;
+                    results.appendChild(noProducts);
+                } else {
+                    const noProducts = document.getElementById("noProducts");
+                    if (noProducts) results.removeChild(noProducts);
+                    for (let product of filteredArray) {
+                        drawCard(product, results)
+                    }
+                }
+            }
+        })
+}
+
+const debouncedSearch = debounce(searchProducts, 1000);
+
 headerSearchButton.addEventListener('click', () => {
     const existing = document.getElementById("searchMenu");
     if (document.getElementById("searchMenu")) {
-        searchMenu.classList.add('burger-closing-animation');
+        searchMenu.classList.add('search-menu-closing-animation');
         setTimeout(() => {
             if (headerPanel.contains(existing)) {
                 headerPanel.removeChild(searchMenu);
@@ -50,11 +108,38 @@ headerSearchButton.addEventListener('click', () => {
             <div id="results" class="results"></div>
         `;
         searchMenu.classList.add("search-menu");
-        searchMenu.classList.add("burger-opening-animation")
+        searchMenu.classList.add("search-menu-opening-animation")
         headerPanel.appendChild(searchMenu);
-        setTimeout(() => searchMenu.classList.remove("burger-opening-animation"), 500)
+        setTimeout(() => searchMenu.classList.remove("search-menu-opening-animation"), 500);
+        const headerSearchField = document.getElementById("headerSearchField");
+        const results = document.getElementById("results")
+
+        headerSearchField.addEventListener("input", () => {
+        const products = results.querySelectorAll(".card");
+        for (let product of products) {
+            results.removeChild(product);
+        };
+
+        isNoProductsElement = document.getElementById("noProducts");
+        if (isNoProductsElement) results.removeChild(isNoProductsElement);
+
+        isLoadingElement = document.querySelector(".loading");
+        if (isLoadingElement) results.removeChild(isLoadingElement);
+        const loading = document.createElement("div");
+        loading.classList.add("loading");
+        results.appendChild(loading)
+        debouncedSearch();
+        })
     }
-})
+});
+
+function debounce(func, ms) {
+    let timeout;
+    return function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, arguments), ms);
+    };
+}
 
 exploreTabsButton.addEventListener('click', () => {
     explore.classList.toggle('d-none')
@@ -125,29 +210,8 @@ if (container) {
     const sortList = document.getElementById("sortList");
 
     const pageButtons = document.getElementById("pageButtons");
-    function drawCard(product) {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
-            <div class="image-container">
-                <img src="${product.path}" alt="${product.name}">
-            </div>
-            <p class="name-product">${product.name}</p>\n`;
-        let grade = "";
-        for (let i = 1; i <= 5; i++) {
-            if (i <= Math.round(product.grade)) {
-                grade += ` <i class="yellow-star fa-solid fa-star"></i>\n`;
-            } else {
-                grade += ` <i class="fa-solid fa-star"></i>\n`;
-            }
-        }
-        card.innerHTML += `
-            <p class="grage" title="Оцінка ${product.grade} з 5">${grade}</p>
-            <p class="price">${product.price} ₴/кг</p>`;
-        container.appendChild(card);
-    }
 
-    function printCards(products) {
+    function printCards(products, container) {
         if (products.length == 0) {
             if (document.getElementById("noProducts")) container.removeChild(document.getElementById("noProducts"));
             const noProducts = document.createElement("div");
@@ -169,19 +233,19 @@ if (container) {
 
         if (window.matchMedia("(min-width: 1025px)").matches) {
             for (let i = 0; i < 9 && i < products.length; i++) {
-                drawCard(products[i]);
+                drawCard(products[i], container);
             };
             counter.textContent = "Показано 1-" + (9 < products.length ? 9 : products.length) + " з " + products.length + " результатів";
         }
         else if (window.matchMedia("(min-width: 769px)").matches) {
             for (let i = 0; i < 8 && i < products.length; i++) {
-                drawCard(products[i]);
+                drawCard(products[i], container);
             };
             counter.textContent = "Показано 1-" + (8 < products.length ? 8 : products.length) + " з " + products.length + " результатів";
         }
         else if (window.matchMedia("(max-width: 768px)").matches) {
             for (let i = 0; i < 6 && i < products.length; i++) {
-                drawCard(products[i]);
+                drawCard(products[i], container);
             };
             counter.textContent = "Показано 1-" + (6 < products.length ? 6 : products.length) + " з " + products.length + " результатів";
         }
@@ -216,7 +280,7 @@ if (container) {
                 })
                 let count = 0;
                 for (let j = (pageNumber - 2) * numberOfCards; j < filteredArray.length && j < (pageNumber - 1) * numberOfCards; j++) {
-                    drawCard(filteredArray[j]);
+                    drawCard(filteredArray[j], container);
                     count++;
                 };
                 counter.textContent = "Показано 1-" + count + " з " + filteredArray.length + " результатів";
@@ -250,7 +314,7 @@ if (container) {
                 })
                 let count = 0;
                 for (let j = pageNumber * numberOfCards; j < filteredArray.length && j < pageNumber * numberOfCards + numberOfCards; j++) {
-                    drawCard(filteredArray[j]);
+                    drawCard(filteredArray[j], container);
                     count++;
                 };
                 counter.textContent = "Показано 1-" + count + " з " + filteredArray.length + " результатів";
@@ -288,7 +352,7 @@ if (container) {
                 deleteCards();
                 let count = 0;
                 for (let j = (i - 1) * numberOfCards; j < filteredArray.length && j < (i - 1) * numberOfCards + numberOfCards; j++) {
-                    drawCard(filteredArray[j]);
+                    drawCard(filteredArray[j], container);
                     pageNumber = i;
                     createForwardButton(filteredArray, numberOfPages); 
                     createBackButton(filteredArray, numberOfPages);
@@ -303,7 +367,7 @@ if (container) {
     fetch('./assets/data/data.json')
         .then(response => response.json())
         .then(data => {
-            printCards(data);
+            printCards(data, container);
             if (window.innerWidth > 1025) {
                 numberOfCards = 9;
             }
@@ -320,8 +384,8 @@ if (container) {
             searchField.addEventListener("keypress", (e) => {
                 if (e.key == "Enter") {
                     deleteCards();
-                    filteredArray = data.filter(product => product.name == searchField.value)
-                    printCards(filteredArray);
+                    filteredArray = data.filter(product => product.name.toLowerCase().trim().startsWith(searchField.value.toLowerCase().trim()));
+                    printCards(filteredArray, container);
                     createPageButtons(filteredArray);
                     rangeMin.value = 0;
                     rangeMax.value = 100;
@@ -332,8 +396,8 @@ if (container) {
 
             searchButton.addEventListener("click", () => {
                 deleteCards();
-                filteredArray = data.filter(product => product.name == searchField.value)
-                printCards(filteredArray);
+                filteredArray = data.filter(product => product.name.toLowerCase().trim().startsWith(searchField.value.toLowerCase().trim()));
+                printCards(filteredArray, container);
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -381,7 +445,7 @@ if (container) {
             applyButton.addEventListener("click", () => {
                 deleteCards();
                 let newArray = filteredArray.filter(product => product.price >= lowestPriceRange && product.price <= highestPriceRange);
-                printCards(newArray);
+                printCards(newArray, container);
                 pageNumber = 1;
                 createPageButtons(newArray);
             })
@@ -389,7 +453,8 @@ if (container) {
             allBtn.addEventListener("click", () => {
                 deleteCards();
                 filteredArray = structuredClone(data);
-                printCards(data);
+                printCards(data, container);
+                searchField.value = null;
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -402,7 +467,8 @@ if (container) {
                 deleteCards();
                 filteredArray = structuredClone(data);
                 filteredArray = filteredArray.filter(product => product.category == "Овочі");
-                printCards(filteredArray);
+                printCards(filteredArray, container);
+                searchField.value = null;
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -415,7 +481,8 @@ if (container) {
                 deleteCards();
                 filteredArray = structuredClone(data);
                 filteredArray = filteredArray.filter(product => product.category == "Фрукти");
-                printCards(filteredArray);
+                printCards(filteredArray, container);
+                searchField.value = null;
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -428,7 +495,8 @@ if (container) {
                 deleteCards();
                 filteredArray = structuredClone(data);
                 filteredArray = filteredArray.filter(product => product.grade >= 4.5);
-                printCards(filteredArray);
+                printCards(filteredArray, container);
+                searchField.value = null;
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -441,7 +509,8 @@ if (container) {
                 deleteCards();
                 filteredArray = structuredClone(data);
                 filteredArray = filteredArray.filter(product => product.category == "Інше");
-                printCards(filteredArray);
+                printCards(filteredArray, container);
+                searchField.value = null;
                 rangeMin.value = 0;
                 rangeMax.value = 100;
                 priceRange.textContent = `${minPrice.toFixed(2)} ₴ - ${maxPrice.toFixed(2)} ₴`;
@@ -456,30 +525,30 @@ if (container) {
                 switch (+sortList.value) {
                     case 1:
                         if (filteredArray == [] || filteredArray.length == data.length) {
-                            printCards(data);
+                            printCards(data, container);
                             pageNumber = 1;
                             createPageButtons(data);
                         } else {
-                            printCards(filteredArray);
+                            printCards(filteredArray, container);
                             pageNumber = 1;
                             createPageButtons(filteredArray);
                         }
                         break;
                     case 2:      
                         sortArray.sort((a, b) => a.price - b.price);
-                        printCards(sortArray);
+                        printCards(sortArray, container);
                         pageNumber = 1;
-                        createPageButtons(filteredArray);
+                        createPageButtons(filteredArray, container);
                         break;
                     case 3:
                         sortArray.sort((a, b) => b.price - a.price);
-                        printCards(sortArray);
+                        printCards(sortArray, container);
                         pageNumber = 1;
-                        createPageButtons(filteredArray);
+                        createPageButtons(filteredArray, container);
                         break;
                     case 4:
                         sortArray.sort((a, b) => b.grade - a.grade);
-                        printCards(sortArray);
+                        printCards(sortArray, container);
                         pageNumber = 1;
                         createPageButtons(filteredArray);
                 }
